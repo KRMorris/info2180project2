@@ -70,49 +70,59 @@ var movePuzzlePiece = function(h){
     move(this);
 }
 
+var shuffle = function(){
+    emptyX = '300px';  //reset empty position
+    emptyY = '300px';
+      
+    var puzzleArray = $('puzzlearea').getElementsByTagName('div');
 
- function giveCoordinates(array){
-    //This is how I make a random number 1 ~ 15
+    shuffleHelper(puzzleArray);
+}
+
+ function shuffleHelper(puzzleArray){
     
-    var arr = []
-      while(arr.length < 15){
+    var shuff = []
+      while(shuff.length < 15){
       var randomnumber=Math.ceil(Math.random()*15)
       var found=false;
-      for(var i=0;i<arr.length;i++){
-    if(arr[i]==randomnumber){found=true;break}
+      for(var i=0;i<shuff.length;i++){
+    if(shuff[i]==randomnumber){found=true;break}
       }
-      if(!found)arr[arr.length]=randomnumber;
+      if(!found)shuff[shuff.length]=randomnumber;
     }
 
-    array[arr[14]-1].style.left= '0px';
-    array[arr[14]-1].style.top='0px';    
-    array[arr[13]-1].style.left= '100px';
-    array[arr[13]-1].style.top='0px';
-    array[arr[12]-1].style.left= '200px';
-    array[arr[12]-1].style.top='0px';
-    array[arr[11]-1].style.left= '300px';
-    array[arr[11]-1].style.top='0px';
-    array[arr[10]-1].style.left= '0px';
-    array[arr[10]-1].style.top='100px';
-    array[arr[9]-1].style.left= '100px';
-    array[arr[9]-1].style.top='100px';
-    array[arr[8]-1].style.left= '200px';
-    array[arr[8]-1].style.top='100px';
-    array[arr[7]-1].style.left= '300px';
-    array[arr[7]-1].style.top='100px';
-    array[arr[6]-1].style.left= '0px';
-    array[arr[6]-1].style.top='200px';
-    array[arr[5]-1].style.left= '100px';
-    array[arr[5]-1].style.top='200px';
-    array[arr[4]-1].style.left= '200px';
-    array[arr[4]-1].style.top='200px';
-    array[arr[3]-1].style.left= '300px';
-    array[arr[3]-1].style.top='200px';
-    array[arr[2]-1].style.left= '0px';
-    array[arr[2]-1].style.top='300px';
-    array[arr[1]-1].style.left= '100px';
-    array[arr[1]-1].style.top='300px';
-    array[arr[0]-1].style.left= '200px';
-    array[arr[0]-1].style.top='300px';
+    puzzleArray[shuff[14]-1].style.left= '0px';
+    puzzleArray[shuff[14]-1].style.top='0px';    
+    puzzleArray[shuff[13]-1].style.left= '100px';
+    puzzleArray[shuff[13]-1].style.top='0px';
+    puzzleArray[shuff[12]-1].style.left= '200px';
+    puzzleArray[shuff[12]-1].style.top='0px';
+    puzzleArray[shuff[11]-1].style.left= '300px';
+    puzzleArray[shuff[11]-1].style.top='0px';
+    puzzleArray[shuff[10]-1].style.left= '0px';
+    puzzleArray[shuff[10]-1].style.top='100px';
+    puzzleArray[shuff[9]-1].style.left= '100px';
+    puzzleArray[shuff[9]-1].style.top='100px';
+    puzzleArray[shuff[8]-1].style.left= '200px';
+    puzzleArray[shuff[8]-1].style.top='100px';
+    puzzleArray[shuff[7]-1].style.left= '300px';
+    puzzleArray[shuff[7]-1].style.top='100px';
+    puzzleArray[shuff[6]-1].style.left= '0px';
+    puzzleArray[shuff[6]-1].style.top='200px';
+    puzzleArray[shuff[5]-1].style.left= '100px';
+    puzzleArray[shuff[5]-1].style.top='200px';
+    puzzleArray[shuff[4]-1].style.left= '200px';
+    puzzleArray[shuff[4]-1].style.top='200px';
+    puzzleArray[shuff[3]-1].style.left= '300px';
+    puzzleArray[shuff[3]-1].style.top='200px';
+    puzzleArray[shuff[2]-1].style.left= '0px';
+    puzzleArray[shuff[2]-1].style.top='300px';
+    puzzleArray[shuff[1]-1].style.left= '100px';
+    puzzleArray[shuff[1]-1].style.top='300px';
+    puzzleArray[shuff[0]-1].style.left= '200px';
+    puzzleArray[shuff[0]-1].style.top='300px';
+    
+    }
+    
     
     }
