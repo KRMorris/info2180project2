@@ -1,7 +1,7 @@
 var puzzle = [];
 window.onload = function(){
     createPuzzle();
-    $("shufflebutton").observe("click", shuffle);
+    document.getElementById("shufflebutton").onclick = shuffle;
 };
 var createPuzzle = function(){
   var puzzle = $$('#puzzlearea div');
@@ -70,16 +70,58 @@ var movePuzzlePiece = function(h){
     move(this);
 }
 
+var shuffle = function(){
+    emptyX = '300px';  //reset empty position
+    emptyY = '300px';
+      
+    var puzzleArray = $('puzzlearea').getElementsByTagName('div');
 
-function shuffle() {
-  var temp = [];
-  for (var i = 0; i < 200; i++) {
-    for (var n = 0; n < puzzle.length; n++) {
-      if (isNextToBlank(puzzle[n].style.left, puzzle[n].style.top)) {
-        temp.push(puzzle[n]);
-      }
-    }
-    move(temp[Math.floor(Math.random() * temp.length)]);
-    temp = [];
-  }
+    shuffleHelper(puzzleArray);
 }
+
+ function shuffleHelper(puzzleArray){
+    //This is how I make a random number 1 ~ 15
+    
+    var shuff = []
+      while(shuff.length < 15){
+      var randomnumber=Math.ceil(Math.random()*15)
+      var found=false;
+      for(var i=0;i<shuff.length;i++){
+    if(shuff[i]==randomnumber){found=true;break}
+      }
+      if(!found)shuff[shuff.length]=randomnumber;
+    }
+
+    puzzleArray[shuff[14]-1].style.left= '0px';
+    puzzleArray[shuff[14]-1].style.top='0px';    
+    puzzleArray[shuff[13]-1].style.left= '100px';
+    puzzleArray[shuff[13]-1].style.top='0px';
+    puzzleArray[shuff[12]-1].style.left= '200px';
+    puzzleArray[shuff[12]-1].style.top='0px';
+    puzzleArray[shuff[11]-1].style.left= '300px';
+    puzzleArray[shuff[11]-1].style.top='0px';
+    puzzleArray[shuff[10]-1].style.left= '0px';
+    puzzleArray[shuff[10]-1].style.top='100px';
+    puzzleArray[shuff[9]-1].style.left= '100px';
+    puzzleArray[shuff[9]-1].style.top='100px';
+    puzzleArray[shuff[8]-1].style.left= '200px';
+    puzzleArray[shuff[8]-1].style.top='100px';
+    puzzleArray[shuff[7]-1].style.left= '300px';
+    puzzleArray[shuff[7]-1].style.top='100px';
+    puzzleArray[shuff[6]-1].style.left= '0px';
+    puzzleArray[shuff[6]-1].style.top='200px';
+    puzzleArray[shuff[5]-1].style.left= '100px';
+    puzzleArray[shuff[5]-1].style.top='200px';
+    puzzleArray[shuff[4]-1].style.left= '200px';
+    puzzleArray[shuff[4]-1].style.top='200px';
+    puzzleArray[shuff[3]-1].style.left= '300px';
+    puzzleArray[shuff[3]-1].style.top='200px';
+    puzzleArray[shuff[2]-1].style.left= '0px';
+    puzzleArray[shuff[2]-1].style.top='300px';
+    puzzleArray[shuff[1]-1].style.left= '100px';
+    puzzleArray[shuff[1]-1].style.top='300px';
+    puzzleArray[shuff[0]-1].style.left= '200px';
+    puzzleArray[shuff[0]-1].style.top='300px';
+    
+    }
+    
