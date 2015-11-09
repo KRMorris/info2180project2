@@ -1,129 +1,88 @@
-
-window.onload = function(){
-    createPuzzle();
-    //$("shufflebutton").observe("click", shuffle);
-    document.getElementById("shufflebutton").onclick = shuffle;
-};
-var createPuzzle = function(){
-  var puzzle = $$('#puzzlearea div');
-  var n = 0;
-  var l = 3;
-  for (var i = 0; i < puzzle.length; i++) {
-    for (var x = 0; x <= l; x++) {
-      puzzle[i].addClassName("puzzlepiece");
-      puzzle[i].style.top = 100 * n + "px";
-      puzzle[i].style.left = 100 * x  + "px";
-      puzzle[i].style.backgroundPosition = -x * 100 + "px " + n * -100 + "px";
-      puzzle[i].observe("click", movePuzzlePiece);
-      puzzle[i].observe("mouseover", hover);
-      i++;
-    }
-    n++;
-    if (n > 2) {
-      l = 2;
-    }
-    i--;
-  }
-}; 
-var emptyY = 300;
 var emptyX = 300;
+var emptyY = 300;
+var puzzlepieces = [];
 
 
-var isNextToBlank = function(x,y){
-     if(Math.abs(emptyY - parseInt(y))== 100){
-        if (Math.abs(emptyX - parseInt(x)) == 0){
-            return true;
-        }
-    }
-    else if (Math.abs(emptyX - parseInt(x)) == 100) {
-        if(Math.abs(emptyY - parseInt(y)) == 0){
-            return true;
-        }
-    } 
-    //else{
-        return false;
-   // }
-}; 
-//hover over tile if its next to empty tile 
-var hover = function(h){
-    if(isNextToBlank(this.style.left, this.style.top)){
-        this.addClassName("movablepiece");
-    }
-    else if(this.hasClassName("movablepiece")){
-        this.removeClassName("movablepiece");
-    }
-}; 
-
-//m rep puzzle piece
-var move = function(tile){
-      /*var x = tile.style.left;
-        var y = tile.style.top;*/
-    if(isNextToBlank(tile.style.left, tile.style.top)){
-        var x = tile.style.left;
-        var y = tile.style.top;
-        
-        tile.style.left = emptyX + "px";
-        tile.style.top = emptyY + "px";
-        emptyX = parseInt(x);
-        emptyY = parseInt(y);
-    }
+window.onload = function() {
+  createPuzzle();
+  $("shufflebutton").observe("click", shuffle);
 };
-var movePuzzlePiece = function(event){
-    move(this);
+
+
+var createPuzzle = function() {
+  puzzlepieces = $$('#puzzlearea div');
+  var  l = 0;
+  var t = 3;
+  for (var n = 0; n < puzzlepieces.length; n++) {
+    for (var i = 0; i <= t; i++) {
+      puzzlepieces[n].addClassName("puzzlepiece");
+      puzzlepieces[n].style.top = 100 * l + "px";
+      puzzlepieces[n].style.left = 100 * i  + "px";
+      puzzlepieces[n].style.backgroundPosition = -i * 100 + "px " + l * -100 + "px";
+      puzzlepieces[n].observe("click", movePuzzlePiece);
+      puzzlepieces[n].observe("mouseover", hover);
+      n++;
+    }
+    l++;
+    if (l > 2) {
+      t = 2;
+    }
+    n--;
+  }
+} 
+
+//hover over tile if its next to empty tile 
+//highlight red
+//underline green
+var hover = function(event) {
+  if (isNextToBlank(this.style.left, this.style.top)) {
+    this.addClassName("movablepiece");
+  } else if (this.hasClassName("movablepiece")) {
+    this.removeClassName("movablepiece");
+  }
 }
 
-var shuffle = function(){
-    emptyX = '300px';  //reset empty position
-    emptyY = '300px';
-      
-    var puzzleArray = $('puzzlearea').getElementsByTagName('div');
 
-    shuffleHelper(puzzleArray);
+ var move = function(tile) {
+  if (isNextToBlank(tile.style.left, tile.style.top)) {
+    var tempX = tile.style.left;
+    var tempY = tile.style.top;
+    tile.style.left = emptyX + "px";
+    tile.style.top = emptyY + "px";
+    emptyX = parseInt(tempX);
+    emptyY = parseInt(tempY);
+  }
 }
 
- function shuffleHelper(puzzleArray){
-    
-    
-    var shuff = []
-      while(shuff.length < 15){
-      var randomnumber=Math.ceil(Math.random()*15)
-      var found=false;
-      for(var i=0;i<shuff.length;i++){
-    if(shuff[i]==randomnumber){found=true;break}
+
+var movePuzzlePiece = function(event) {
+  move(this);
+}
+
+
+function shuffle() {
+  var temp = [];
+  for (var n = 0; n < 200; n++) {
+    for (var l = 0; l < puzzlepieces.length; l++) {
+      if (isNextToBlank(puzzlepieces[l].style.left, puzzlepieces[l].style.top)) {
+        temp.push(puzzlepieces[l]);
       }
-      if(!found)shuff[shuff.length]=randomnumber;
     }
+    move(temp[Math.floor(Math.random() * temp.length)]);
+    temp = [];
+  }
+}
 
-    puzzleArray[shuff[14]-1].style.left= '0px';
-    puzzleArray[shuff[14]-1].style.top='0px';    
-    puzzleArray[shuff[13]-1].style.left= '100px';
-    puzzleArray[shuff[13]-1].style.top='0px';
-    puzzleArray[shuff[12]-1].style.left= '200px';
-    puzzleArray[shuff[12]-1].style.top='0px';
-    puzzleArray[shuff[11]-1].style.left= '300px';
-    puzzleArray[shuff[11]-1].style.top='0px';
-    puzzleArray[shuff[10]-1].style.left= '0px';
-    puzzleArray[shuff[10]-1].style.top='100px';
-    puzzleArray[shuff[9]-1].style.left= '100px';
-    puzzleArray[shuff[9]-1].style.top='100px';
-    puzzleArray[shuff[8]-1].style.left= '200px';
-    puzzleArray[shuff[8]-1].style.top='100px';
-    puzzleArray[shuff[7]-1].style.left= '300px';
-    puzzleArray[shuff[7]-1].style.top='100px';
-    puzzleArray[shuff[6]-1].style.left= '0px';
-    puzzleArray[shuff[6]-1].style.top='200px';
-    puzzleArray[shuff[5]-1].style.left= '100px';
-    puzzleArray[shuff[5]-1].style.top='200px';
-    puzzleArray[shuff[4]-1].style.left= '200px';
-    puzzleArray[shuff[4]-1].style.top='200px';
-    puzzleArray[shuff[3]-1].style.left= '300px';
-    puzzleArray[shuff[3]-1].style.top='200px';
-    puzzleArray[shuff[2]-1].style.left= '0px';
-    puzzleArray[shuff[2]-1].style.top='300px';
-    puzzleArray[shuff[1]-1].style.left= '100px';
-    puzzleArray[shuff[1]-1].style.top='300px';
-    puzzleArray[shuff[0]-1].style.left= '200px';
-    puzzleArray[shuff[0]-1].style.top='300px';
-    
+//check if puzzle piece is next to empty tile
+var isNextToBlank = function(x, y) {
+  if (Math.abs(emptyY - parseInt(y)) == 100) {
+    if (Math.abs(emptyX - parseInt(x)) == 0) {
+      return true;
     }
-    
+  } else if (Math.abs(emptyX - parseInt(x)) == 100) {
+    if (Math.abs(emptyY - parseInt(y)) == 0) {
+      return true;
+    }
+  }
+  return false;
+}
