@@ -71,15 +71,48 @@ var movePuzzlePiece = function(h){
 }
 
 
-function shuffle() {
-  var temp = [];
-  for (var i = 0; i < 200; i++) {
-    for (var n = 0; n < puzzle.length; n++) {
-      if (isNextToBlank(puzzle[n].style.left, puzzle[n].style.top)) {
-        temp.push(puzzle[n]);
+ function giveCoordinates(array){
+    //This is how I make a random number 1 ~ 15
+    
+    var arr = []
+      while(arr.length < 15){
+      var randomnumber=Math.ceil(Math.random()*15)
+      var found=false;
+      for(var i=0;i<arr.length;i++){
+    if(arr[i]==randomnumber){found=true;break}
       }
+      if(!found)arr[arr.length]=randomnumber;
     }
-    move(temp[Math.floor(Math.random() * temp.length)]);
-    temp = [];
-  }
-}
+
+    array[arr[14]-1].style.left= '0px';
+    array[arr[14]-1].style.top='0px';    
+    array[arr[13]-1].style.left= '100px';
+    array[arr[13]-1].style.top='0px';
+    array[arr[12]-1].style.left= '200px';
+    array[arr[12]-1].style.top='0px';
+    array[arr[11]-1].style.left= '300px';
+    array[arr[11]-1].style.top='0px';
+    array[arr[10]-1].style.left= '0px';
+    array[arr[10]-1].style.top='100px';
+    array[arr[9]-1].style.left= '100px';
+    array[arr[9]-1].style.top='100px';
+    array[arr[8]-1].style.left= '200px';
+    array[arr[8]-1].style.top='100px';
+    array[arr[7]-1].style.left= '300px';
+    array[arr[7]-1].style.top='100px';
+    array[arr[6]-1].style.left= '0px';
+    array[arr[6]-1].style.top='200px';
+    array[arr[5]-1].style.left= '100px';
+    array[arr[5]-1].style.top='200px';
+    array[arr[4]-1].style.left= '200px';
+    array[arr[4]-1].style.top='200px';
+    array[arr[3]-1].style.left= '300px';
+    array[arr[3]-1].style.top='200px';
+    array[arr[2]-1].style.left= '0px';
+    array[arr[2]-1].style.top='300px';
+    array[arr[1]-1].style.left= '100px';
+    array[arr[1]-1].style.top='300px';
+    array[arr[0]-1].style.left= '200px';
+    array[arr[0]-1].style.top='300px';
+    
+    }
