@@ -1,7 +1,7 @@
 var puzzle = [];
 window.onload = function(){
     createPuzzle();
-    $("shufflebutton").observe("click", shuffle);
+    document.getElementById("shufflebutton").onclick = shuffle;
 };
 var createPuzzle = function(){
   var puzzle = $$('#puzzlearea div');
