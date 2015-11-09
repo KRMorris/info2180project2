@@ -1,13 +1,13 @@
-var puzzle = [];
+
 window.onload = function(){
     createPuzzle();
+    //$("shufflebutton").observe("click", shuffle);
     document.getElementById("shufflebutton").onclick = shuffle;
 };
 var createPuzzle = function(){
   var puzzle = $$('#puzzlearea div');
-  var l = 3;
   var n = 0;
-  
+  var l = 3;
   for (var i = 0; i < puzzle.length; i++) {
     for (var x = 0; x <= l; x++) {
       puzzle[i].addClassName("puzzlepiece");
@@ -24,7 +24,7 @@ var createPuzzle = function(){
     }
     i--;
   }
-} 
+}; 
 var emptyY = 300;
 var emptyX = 300;
 
@@ -43,7 +43,7 @@ var isNextToBlank = function(x,y){
     //else{
         return false;
    // }
-} 
+}; 
 //hover over tile if its next to empty tile 
 var hover = function(h){
     if(isNextToBlank(this.style.left, this.style.top)){
@@ -52,21 +52,23 @@ var hover = function(h){
     else if(this.hasClassName("movablepiece")){
         this.removeClassName("movablepiece");
     }
-} 
+}; 
 
 //m rep puzzle piece
-var move = function(m){
-    if(isNextToBlank(m.style.left, m.style.top)){
-        var x = m.style.left;
-        var y = m.style.top;
+var move = function(tile){
+      /*var x = tile.style.left;
+        var y = tile.style.top;*/
+    if(isNextToBlank(tile.style.left, tile.style.top)){
+        var x = tile.style.left;
+        var y = tile.style.top;
         
-        m.style.left = emptyX + "px";
-        m.style.top = emptyY + "px";
+        tile.style.left = emptyX + "px";
+        tile.style.top = emptyY + "px";
         emptyX = parseInt(x);
         emptyY = parseInt(y);
     }
-}
-var movePuzzlePiece = function(h){
+};
+var movePuzzlePiece = function(event){
     move(this);
 }
 
@@ -80,7 +82,7 @@ var shuffle = function(){
 }
 
  function shuffleHelper(puzzleArray){
-    //This is how I make a random number 1 ~ 15
+    
     
     var shuff = []
       while(shuff.length < 15){
