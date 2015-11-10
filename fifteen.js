@@ -1,11 +1,37 @@
 var emptyX = 300;
 var emptyY = 300;
 var puzzlepieces = [];
-
+var counter =0; // initializing counte
 
 window.onload = function() {
   createPuzzle();
   $("shufflebutton").observe("click", shuffle);
+  
+  //adding counter to the html page by using innerHTML
+    var cr = document.createElement('div');
+    cr.id = 'gCounter';
+    $('overall').appendChild(cr);
+    $('gCounter').style.height = "20px";
+    $('gCounter').style.background = "rgba(176,196,222,0.6)";
+    $('gCounter').style.marginTop = "10px";
+    $('gCounter').style.padding = "5px";
+    $('gCounter').style.border = "double black";
+    $('gCounter').innerHTML= "Counter: ";
+    $('gCounter').innerHTML= "Counter: " + counter.toString();
+    
+    //adding timer to the html page by suing innerHTML
+    var ti = document.createElement('div');
+    ti.id = 'gTimer';
+    $('overall').appendChild(ti);
+    $('gTimer').style.height = "20px";
+    $('gTimer').style.background = "rgba(176,196,222,0.6)";
+    $('gTimer').style.marginTop = "5px";
+    $('gTimer').style.padding = "5px";
+    $('gTimer').style.border = "double black";
+    $('gTimer').innerHTML= "Counter: ";
+    $('gTimer').innerHTML= " Timer:  <span id='seconds'>00</span>";
+    
+  
 };
 
 
@@ -29,18 +55,16 @@ var createPuzzle = function() {
     }
     n--;
   }
-} 
+}; 
 
-//hover over tile if its next to empty tile 
-//highlight red
-//underline green
+
 var hover = function(event) {
   if (isNextToBlank(this.style.left, this.style.top)) {
     this.addClassName("movablepiece");
   } else if (this.hasClassName("movablepiece")) {
     this.removeClassName("movablepiece");
   }
-}
+};
 
 
  var move = function(tile) {
@@ -51,16 +75,22 @@ var hover = function(event) {
     tile.style.top = emptyY + "px";
     emptyX = parseInt(tempX);
     emptyY = parseInt(tempY);
+    counter++;
+    //window.alert("left: "+this.style.left+", top: "+this.style.top+"");
+    $('gCounter').innerHTML= "Counter: " + counter.toString(); 
   }
-}
+};
 
 
 var movePuzzlePiece = function(event) {
   move(this);
-}
+};
 
 
 function shuffle() {
+  stopTimer();
+    
+   
   var temp = [];
   for (var n = 0; n < 200; n++) {
     for (var l = 0; l < puzzlepieces.length; l++) {
@@ -70,10 +100,15 @@ function shuffle() {
     }
     move(temp[Math.floor(Math.random() * temp.length)]);
     temp = [];
+    
   }
+  
+ counter =0;  //reset
+    $('gCounter').innerHTML= "Counter: " + counter.toString(); 
+
 }
 
-//check if puzzle piece is next to empty tile
+
 var isNextToBlank = function(x, y) {
   if (Math.abs(emptyY - parseInt(y)) == 100) {
     if (Math.abs(emptyX - parseInt(x)) == 0) {
@@ -85,4 +120,44 @@ var isNextToBlank = function(x, y) {
     }
   }
   return false;
-}
+};
+
+
+    //Timer
+    var sec = 0,
+      timeoutHandler;
+
+    function pad(val) {
+    return val > 9 ? val : "0" + val;
+    }
+
+    function pausePad() {
+    clearTimeout( timeoutHandler );
+    }
+
+    function resumePad() {
+    pausePad();
+    runPad();
+    }
+
+    function resetPad() {
+    sec = 0;
+    resumePad();
+    }
+
+    function runPad() {
+    timeoutHandler = setInterval(function() {
+        document.getElementById("seconds").innerHTML = pad(++sec);
+        document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+    },1000);
+    
+    }
+    runPad();
+        
+    function stopTimer () {
+        
+         $('gTimer').innerHTML= "  Timer:  <span id='seconds'>00</span>";
+         resetPad();
+    
+        }
+    
