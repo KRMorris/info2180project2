@@ -148,7 +148,7 @@ var isNextToBlank = function(x, y) {
     function runPad() {
     timeoutHandler = setInterval(function() {
         document.getElementById("seconds").innerHTML = pad(++sec);
-        document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+       // document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
     },1000);
     
     }
